@@ -1,0 +1,81 @@
+<view class="g-doc">
+
+  <view class="m-licence-plalte">
+
+    <view class='licence-header'>
+      <view class="licence-form">
+        <block wx:for="{{select}}" wx:key="*this">
+          <i data-idx="{{index}}" class="c-inp {{item.active?'z-active':''}}" bindtap="changeActive">
+            {{item.content}}
+          </i>
+        </block>
+      </view>
+      <view class="licence-title">
+        请输入车牌号（新能源选填）
+      </view>
+      <view class="weui-btn-area">
+        <form report-submit="true" bindsubmit="bindingLicenseplate">
+          <button class="weui-btn" formType="submit" type="{{!disabled && clickdisabled ?'default':'primary'}}" disabled="{{clickdisabled}}">查询</button>
+        </form>
+      </view>
+      <view class="licence-msg">
+        {{licenceMsg}}
+      </view>
+    </view>
+
+    <view class='licence-body-flex' hidden='{{hiddenBody}}'>
+      <view class="weui-form-preview">
+        <view class="weui-form-preview__hd" bindtap='hiddenLicenceBody'>
+          <view class="weui-form-preview__value_in-hd">完成</view>
+        </view>
+      </view>
+      <view class="licence-keyboard" id="provinceId" hidden='{{!select[0].active}}'>
+        <view class="keyb-block">
+          <block wx:for="{{province}}" wx:key="*this">
+            <i class="keyb inp-key" data-value="{{item}}" style="{{cssTextKeyB}}" bindtap="changeValue">
+              {{item}}
+            </i>
+          </block>
+          <i class="keyb iconfont  key-delete icon-tuige" style="{{cssTextKeyB}}" bindtap="changeDel">
+          </i>
+        </view>
+      </view>
+      <view class="licence-keyboard" id="cityId" hidden='{{!select[1].active}}'>
+        <view class="keyb-block">
+          <block wx:for="{{city}}" wx:key="*this">
+            <block wx:if="{{item=='I'}}">
+              <i class="keyb inp-key inp-key-disable" style="{{cssTextKeyB}}" data-value="{{item}}">
+                {{item}}
+              </i>
+            </block>
+            <block wx:else>
+              <i class="keyb inp-key" data-value="{{item}}" style="{{cssTextKeyB}}" bindtap="changeValue">
+                {{item}}
+              </i>
+            </block>
+          </block>
+          <i class="keyb iconfont  key-delete icon-tuige" style="{{cssTextKeyB}}" bindtap="changeDel">
+          </i>
+        </view>
+      </view>
+      <view class="licence-keyboard" id="numberId" hidden='{{select[0].active||select[1].active}}'>
+        <view class="keyb-block">
+          <block wx:for="{{numbers}}" wx:key="*key">
+            <block wx:if="{{selectActive < 6  && (item=='港'||item=='澳'||item=='学'||item=='领'||item=='警'||item=='挂') }}">
+              <i class="keyb inp-key inp-key-disable" style="{{cssTextKeyB}}" data-value="{{item}}">
+                {{item}}
+              </i>
+            </block>
+            <block wx:else>
+              <i class="keyb inp-key" style="{{cssTextKeyB}}" data-value="{{item}}" bindtap="changeValue">
+                {{item}}
+              </i>
+            </block>
+          </block>
+          <i class="keyb iconfont  key-delete icon-tuige" style="{{cssTextKeyB}}" bindtap="changeDel">
+          </i>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
